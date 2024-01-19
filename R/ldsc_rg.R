@@ -303,7 +303,11 @@ ldsc_rg <- function(munged_sumstats, ancestry, sample_prev = NA, population_prev
     rownames(SE) <- rownames(S)
   }
 
-
+  for(i in 1:nrow(S)) {
+  if (S[i, i] < 0) {
+     S[i, i] = 1e-4 
+   }
+  }
   if (all(diag(S) > 0)) {
     ## calculate standardized results to print genetic correlations to log and screen
     ratio <- tcrossprod(1 / sqrt(diag(S)))
